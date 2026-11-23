@@ -30,6 +30,9 @@ if (TEXT !== TEXT.trim()) {
 if (TEXT.includes("\n") || TEXT.includes("\r")) {
   throw new Error("entry must be exactly one line");
 }
+if ([...TEXT].some((ch) => ch.charCodeAt(0) < 32)) {
+  throw new Error("entry must not contain newline or control characters");
+}
 // The tie-break goes to the smaller text, so keep the byte count small.
 const byteLength = Buffer.byteLength(TEXT, "utf8");
 if (byteLength > 200) {
